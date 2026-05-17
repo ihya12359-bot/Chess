@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Chess — Play. Think. Win.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/settings.css">
+</head>
+<body>
+
+<div class="bg-layer" aria-hidden="true">
+  <div class="bg-orb bg-orb--purple"></div>
+  <div class="bg-orb bg-orb--blue"></div>
+  <div class="bg-noise"></div>
+</div>
+
+<!-- ==================== PAGE: DASHBOARD ==================== -->
+<div id="page-dashboard" class="page active">
+  <div class="dash-wrap">
+    <div class="dash-header">
+      <div class="dash-logo">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+          <path d="M20 5C17.5 5 16 6.8 16 8.5C16 9.8 16.7 10.9 17.8 11.5L15 16H12L10 20H14L12 28H28L26 20H30L28 16H25L22.2 11.5C23.3 10.9 24 9.8 24 8.5C24 6.8 22.5 5 20 5Z" fill="white" opacity="0.9"/>
+          <rect x="10" y="28" width="20" height="4" rx="2" fill="white" opacity="0.65"/>
+        </svg>
+      </div>
+      <div class="dash-title">
+        <h1>SIMPLE CHESS</h1>
+        <p>PLAY · THINK · WIN</p>
+      </div>
+      <button class="icon-btn" id="btn-goto-settings" aria-label="Pengaturan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+
+    <div class="dash-hero">
+      <div class="dash-hero__pieces" aria-hidden="true">
+        <span class="hero-piece hero-piece--bk">♚</span>
+        <span class="hero-piece hero-piece--bp">♟</span>
+        <span class="hero-piece hero-piece--wk">♔</span>
+        <span class="hero-piece hero-piece--wp">♙</span>
+      </div>
+      <div class="dash-hero__text">
+        <p class="hero-label">SIAP BERMAIN?</p>
+        <h2>Tantang Dirimu</h2>
+        <p class="hero-sub">15 level AI — dari pemula hingga Grandmaster</p>
+      </div>
+    </div>
+
+    <div class="dash-menu">
+      <button class="menu-btn menu-btn--primary" id="btn-vs-ai">
+        <div class="menu-btn__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8.5 10h-2M15.5 10h2M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="menu-btn__text">
+          <span class="menu-btn__title">LAWAN AI</span>
+          <span class="menu-btn__sub">Bermain melawan komputer</span>
+        </div>
+        <div class="menu-btn__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg></div>
+      </button>
+
+      <button class="menu-btn" id="btn-2player">
+        <div class="menu-btn__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="20" height="20"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a4 4 0 0 0-4-4h-2"/></svg>
+        </div>
+        <div class="menu-btn__text">
+          <span class="menu-btn__title">2 PEMAIN</span>
+          <span class="menu-btn__sub">Bermain dengan teman</span>
+        </div>
+        <div class="menu-btn__arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg></div>
+      </button>
+    </div>
+
+    <div class="dash-stats">
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--gold">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="stat-val" id="stat-wins">0</div>
+        <div class="stat-lbl">Menang</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </div>
+        <div class="stat-val" id="stat-draws">0</div>
+        <div class="stat-lbl">Seri</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon stat-icon--red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <div class="stat-val" id="stat-losses">0</div>
+        <div class="stat-lbl">Kalah</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: GAME ==================== -->
+<div id="page-game" class="page">
+  <div class="game-wrap">
+    <div class="game-header">
+      <button class="icon-btn" id="btn-exit-game" aria-label="Keluar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="game-header__info">
+        <span id="game-mode-label" class="game-mode-badge">VS AI</span>
+        <span id="game-level-label" class="game-level-badge">Level 8</span>
+      </div>
+      <div class="game-header__actions">
+        <button class="icon-btn" id="btn-undo" title="Undo langkah">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h10a5 5 0 0 1 0 10H8M3 10l4-4M3 10l4 4"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-restart" title="Restart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="game-main">
+      <div class="player-bar player-bar--top" id="player-top">
+        <div class="player-avatar" id="avatar-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><rect x="2" y="3" width="20" height="14" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8.5 10h-2M15.5 10h2"/></svg>
+        </div>
+        <div class="player-info">
+          <span class="player-name" id="name-top">AI Lawan</span>
+          <span class="player-captured" id="captured-top"></span>
+        </div>
+        <div class="player-timer" id="timer-top">—</div>
+      </div>
+
+      <div class="board-container">
+        <div class="board-coords-rank" id="coords-rank"></div>
+        <div class="board-wrapper" data-board="classic">
+          <div id="chessboard" class="chessboard"></div>
+        </div>
+        <div class="board-coords-file" id="coords-file"></div>
+      </div>
+
+      <div class="player-bar player-bar--bottom" id="player-bottom">
+        <div class="player-avatar player-avatar--human" id="avatar-bottom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="player-info">
+          <span class="player-name" id="name-bottom">Kamu</span>
+          <span class="player-captured" id="captured-bottom"></span>
+        </div>
+        <div class="player-timer" id="timer-bottom">—</div>
+      </div>
+    </div>
+
+    <div class="game-side">
+      <div class="turn-indicator">
+        <div class="turn-dot white" id="turn-dot"></div>
+        <span id="turn-text">Giliran Putih</span>
+      </div>
+      <div class="game-status" id="game-status" style="display:none"></div>
+      <div class="ai-thinking" id="ai-thinking" style="display:none">
+        <div class="thinking-dots"><span></span><span></span><span></span></div>
+        <span>AI sedang berpikir…</span>
+      </div>
+      <div class="move-history">
+        <div class="move-history__header">RIWAYAT LANGKAH</div>
+        <div class="move-history__list" id="move-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PAGE: SETTINGS ==================== -->
+<div id="page-settings" class="page">
+  <div class="settings-wrap">
+    <div class="settings-header">
+      <button class="icon-btn" id="btn-back-settings" aria-label="Kembali">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <h2 class="settings-title">PENGATURAN</h2>
+      <div style="width:40px"></div>
+    </div>
+
+    <div class="settings-body">
+      <div class="settings-section">
+        <div class="settings-section__label">TAMPILAN</div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Mode Tampilan</span></div>
+          <div class="settings-row__control">
+            <span class="toggle-label" id="theme-label">Dark Mode</span>
+            <button class="toggle active" id="toggle-theme" role="switch"><span class="toggle-thumb"></span></button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Tema Papan</span></div>
+          <div class="board-themes">
+            <button class="board-theme-opt active" data-theme="classic" title="Classic"><div class="board-theme-preview board-theme-preview--classic"></div></button>
+            <button class="board-theme-opt" data-theme="walnut" title="Walnut"><div class="board-theme-preview board-theme-preview--walnut"></div></button>
+            <button class="board-theme-opt" data-theme="slate" title="Slate"><div class="board-theme-preview board-theme-preview--slate"></div></button>
+            <button class="board-theme-opt" data-theme="ocean" title="Ocean"><div class="board-theme-preview board-theme-preview--ocean"></div></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section__label">AUDIO</div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Volume Suara</span></div>
+          <div class="settings-row__control settings-row__control--slider">
+            <input type="range" id="slider-volume" min="0" max="100" value="70" class="range-slider">
+            <span class="slider-val" id="vol-label">70%</span>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Efek Suara</span></div>
+          <div class="settings-row__control">
+            <button class="toggle active" id="toggle-sfx" role="switch"><span class="toggle-thumb"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section__label">GAME</div>
+        <div class="settings-row">
+          <div class="settings-row__info">
+            <span class="settings-row__name">Kesulitan AI Default</span>
+            <span class="settings-row__sub" id="diff-name-label">Normal+</span>
+          </div>
+          <div class="settings-row__control settings-row__control--slider">
+            <input type="range" id="slider-difficulty" min="1" max="15" value="8" class="range-slider">
+            <span class="slider-val" id="diff-label">8</span>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Tampilkan Langkah Valid</span></div>
+          <div class="settings-row__control">
+            <button class="toggle active" id="toggle-hints" role="switch"><span class="toggle-thumb"></span></button>
+          </div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row__info"><span class="settings-row__name">Animasi Bidak</span></div>
+          <div class="settings-row__control">
+            <button class="toggle active" id="toggle-anim" role="switch"><span class="toggle-thumb"></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section__label">LAINNYA</div>
+        <div class="settings-row">
+          <div class="settings-row__info">
+            <span class="settings-row__name">Reset Pengaturan</span>
+            <span class="settings-row__sub">Kembalikan semua ke default</span>
+          </div>
+          <div class="settings-row__control">
+            <button class="btn-danger" id="btn-reset-settings">RESET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: AI Difficulty -->
+<div id="modal-difficulty" class="modal-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Pilih Level AI</h3>
+      <button class="icon-btn modal-close" id="modal-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc">Pilih warna bidak dan tingkat kesulitan AI</p>
+      <div class="color-choice">
+        <button class="color-btn active" data-color="white"><span class="color-piece">♔</span><span>Putih</span><span class="color-sub">Mulai duluan</span></button>
+        <button class="color-btn" data-color="random"><span class="color-piece" style="font-size:22px">⚖</span><span>Acak</span><span class="color-sub">Kejutan!</span></button>
+        <button class="color-btn" data-color="black"><span class="color-piece">♚</span><span>Hitam</span><span class="color-sub">AI duluan</span></button>
+      </div>
+      <div class="level-grid" id="level-grid"></div>
+      <button class="btn-primary btn-full" id="btn-start-ai">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+        Mulai Bermain
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Game Over -->
+<div id="modal-gameover" class="modal-overlay" style="display:none">
+  <div class="modal-box modal-box--result">
+    <div class="result-icon" id="result-icon"></div>
+    <h2 class="result-title" id="result-title">Game Over</h2>
+    <p class="result-sub" id="result-sub"></p>
+    <div class="result-stats">
+      <div class="result-stat">
+        <span class="result-stat__val" id="result-moves">0</span>
+        <span class="result-stat__lbl">Langkah</span>
+      </div>
+    </div>
+    <div class="result-actions">
+      <button class="btn-primary" id="btn-play-again">Main Lagi</button>
+      <button class="btn-ghost" id="btn-back-home">Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Pawn Promotion -->
+<div id="modal-promotion" class="modal-overlay" style="display:none">
+  <div class="modal-box modal-box--promo">
+    <h3 class="promo-title">Promosi Pion!</h3>
+    <p class="promo-sub">Pilih bidak pengganti</p>
+    <div class="promo-choices" id="promo-choices"></div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="js/state.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/router.js"></script>
+<script src="js/stockfish.js"></script>
+<script src="js/chess-engine.js"></script>
+<script src="js/board.js"></script>
+<script src="js/game.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/settings.js"></script>
+
+<!-- Bootstrap -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Apply saved theme immediately
+    document.documentElement.setAttribute('data-theme', State.get('theme') || 'dark');
+    // Init modules
+    Settings.init();
+    Dashboard.init();
+  });
+</script>
+</body>
+</html>
