@@ -1,0 +1,79 @@
+/* ============================================================
+   BASE.CSS — Reset, Variables, Typography, Utilities
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:#0c0c10; --s1:#111116; --s2:#18181f; --s3:#1f1f29; --s4:#272733;
+  --br:rgba(255,255,255,0.06); --br2:rgba(255,255,255,0.10); --br3:rgba(255,255,255,0.16);
+  --t1:#eeeef4; --t2:#7878a0; --t3:#44445a;
+  --ac:#6c63ff; --ac2:#8b83ff; --ac-glow:rgba(108,99,255,0.30); --ac-dim:rgba(108,99,255,0.10);
+  --blue:#3b8cf8; --blue-g:rgba(59,140,248,0.20);
+  --red:#ff4f4f; --red-g:rgba(255,79,79,0.20);
+  --green:#3ecf8e; --green-g:rgba(62,207,142,0.20);
+  --gold:#f5c518; --gold-g:rgba(245,197,24,0.20);
+  --board-light:#f0d9b5; --board-dark:#b58863;
+  --r-sm:8px; --r-md:14px; --r-lg:20px; --r-xl:28px;
+  --ease:cubic-bezier(0.22,1,0.36,1); --dur:0.25s;
+}
+[data-theme="light"] {
+  --bg:#f0f0f6; --s1:#ffffff; --s2:#f5f5fa; --s3:#ebebf3; --s4:#e0e0ec;
+  --br:rgba(0,0,0,0.06); --br2:rgba(0,0,0,0.10); --br3:rgba(0,0,0,0.16);
+  --t1:#111120; --t2:#555580; --t3:#9999bb;
+}
+
+html,body { height:100%; font-family:'Outfit',sans-serif; background:var(--bg); color:var(--t1); -webkit-font-smoothing:antialiased; overflow:hidden; }
+h1,h2,h3 { font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
+::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:4px}
+
+/* BG */
+.bg-layer{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.7}
+.bg-orb--purple{width:700px;height:700px;background:radial-gradient(circle,rgba(108,99,255,0.12) 0%,transparent 70%);top:-200px;left:-200px;animation:orb1 12s ease-in-out infinite alternate}
+.bg-orb--blue{width:500px;height:500px;background:radial-gradient(circle,rgba(59,140,248,0.08) 0%,transparent 70%);bottom:-100px;right:-100px;animation:orb2 16s ease-in-out infinite alternate}
+.bg-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px;opacity:0.4}
+@keyframes orb1{0%{transform:translate(0,0)}100%{transform:translate(80px,60px)}}
+@keyframes orb2{0%{transform:translate(0,0)}100%{transform:translate(-60px,-40px)}}
+
+/* ICON BTN */
+.icon-btn{width:40px;height:40px;border-radius:var(--r-sm);border:1px solid var(--br2);background:var(--s2);color:var(--t2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--dur) var(--ease);flex-shrink:0}
+.icon-btn svg{width:18px;height:18px}
+.icon-btn:hover{background:var(--s3);color:var(--t1);border-color:var(--br3)}
+.icon-btn:active{transform:scale(0.93)}
+
+/* TOGGLE */
+.toggle{width:44px;height:24px;border-radius:12px;background:var(--s4);border:1px solid var(--br2);cursor:pointer;position:relative;transition:background var(--dur) var(--ease),box-shadow var(--dur) var(--ease);flex-shrink:0}
+.toggle.active{background:var(--ac);border-color:var(--ac);box-shadow:0 0 12px var(--ac-glow)}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--t2);transition:all var(--dur) var(--ease)}
+.toggle.active .toggle-thumb{left:22px;background:white}
+
+/* RANGE SLIDER */
+.range-slider{-webkit-appearance:none;height:3px;border-radius:2px;background:var(--s4);outline:none;cursor:pointer;flex:1}
+.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--ac-glow);cursor:pointer;transition:transform 0.15s ease}
+.range-slider::-webkit-slider-thumb:hover{transform:scale(1.2)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r-md);background:var(--ac);color:white;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all var(--dur) var(--ease);box-shadow:0 0 20px var(--ac-glow);letter-spacing:0.02em}
+.btn-primary:hover{background:var(--ac2);box-shadow:0 0 30px var(--ac-glow);transform:translateY(-1px)}
+.btn-primary:active{transform:scale(0.97)}
+.btn-full{width:100%}
+.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:var(--r-md);background:transparent;color:var(--t2);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;border:1px solid var(--br2);cursor:pointer;transition:all var(--dur) var(--ease)}
+.btn-ghost:hover{background:var(--s3);color:var(--t1);border-color:var(--br3)}
+.btn-danger{padding:9px 20px;border-radius:var(--r-sm);background:transparent;color:var(--red);font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;border:1px solid var(--red);cursor:pointer;letter-spacing:0.05em;transition:all var(--dur) var(--ease)}
+.btn-danger:hover{background:var(--red-g);box-shadow:0 0 16px var(--red-g)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--s1);border:1px solid var(--br2);border-radius:var(--r-xl);padding:28px;width:100%;max-width:420px;max-height:90vh;overflow-y:auto;animation:slideUp 0.3s var(--ease);box-shadow:0 40px 80px rgba(0,0,0,0.5)}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.modal-header h3{font-size:18px;font-weight:700}
+
+/* THINKING */
+.thinking-dots{display:flex;gap:4px;align-items:center}
+.thinking-dots span{width:5px;height:5px;border-radius:50%;background:var(--ac);animation:bounce 1.2s ease-in-out infinite}
+.thinking-dots span:nth-child(2){animation-delay:0.2s}
+.thinking-dots span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(0.8);opacity:0.5}40%{transform:scale(1.2);opacity:1}}
+           
