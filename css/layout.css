@@ -1,0 +1,13 @@
+/* ============================================================
+   LAYOUT.CSS — Page system & transitions
+   ============================================================ */
+.page {
+  position: fixed; inset: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  transform: translateY(16px);
+  padding: 16px; overflow-y: auto;
+}
+.page.active { opacity: 1; pointer-events: all; transform: translateY(0); }
+.page.exit { opacity: 0; transform: translateY(-16px); }
